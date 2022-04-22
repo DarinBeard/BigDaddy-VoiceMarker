@@ -14,8 +14,9 @@ It can also be used with the default voice chat.
 I think it will work with just about any chat mod if that mod doesn't hijack the basic cfx voice mechanism.
 
 ## Credits
-Base for the marker came from [BTNGaming](https://github.githubassets.com/favicon.ico) [GitHub ](https://github.com/btngaming/rrp_VoiceMarker)
-Author: [BigDaddy](https://github.com/darinbeard/VoiceMarker)
+Base for the marker came from [BTNGaming] (https://github.com/btngaming/rrp_VoiceMarker)
+
+Author of this iteration: [BigDaddy](https://github.com/darinbeard/VoiceMarker)
 
 Original Concept: FamilyRP-Style-Voice
 
