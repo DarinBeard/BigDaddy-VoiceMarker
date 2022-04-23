@@ -68,11 +68,11 @@ Citizen.CreateThread(function()
                 if ((distance < Config.DrawDistance) and IsEntityVisible(GetPlayerPed(id))) ~= GetPlayerPed( -1 ) then
 					if NetworkIsPlayerTalking(id) then
 						DrawMarker(Config.MarkerType, x2, y2, z2 - 0.0, 0, 0, 10, 0, 0, 0, Config.MarkerSize.x, Config.MarkerSize.y, Config.MarkerSize.z, Config.MarkerColor.r, Config.MarkerColor.g, Config.MarkerColor.b, 105, Config.MarkerBounce, Config.MarkerFaceCamera, 2, Config.MarkerRotate, 0, 0, 0)
-						if Config.ShowId == 1 then
+						if ((Config.ShowId == 1) and (distance < Config.DrawIdDistance)) then
 							DrawText3D(GetEntityCoords( ped, true), GetPlayerServerId(id), Config.MarkerColor.r, Config.MarkerColor.g, Config.MarkerColor.b )
 						end
 					else
-						if Config.ShowId == 1 then
+						if ((Config.ShowId == 1) and (distance < Config.DrawIdDistance)) then
 							DrawText3D(GetEntityCoords( ped, true), GetPlayerServerId(id), 255, 255, 255 )
 						end
                     end
