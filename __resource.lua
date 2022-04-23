@@ -4,7 +4,7 @@ description 'VoiceMarker'
 
 author 'BigDaddy'
 
-version '1.0.1'
+version '1.0.2'
 
 client_scripts {
 	'config.lua',

@@ -26,6 +26,9 @@ Original Concept: FamilyRP-Style-Voice
     * Initial Release
 * 1.0.1
 	* Added config option for text placement
+* 1.0.2
+	* Added display of ID over players head
+	* Added config option to turn ID over head off/on
 	
 ## Dependencies
 Standalone

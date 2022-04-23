@@ -13,26 +13,36 @@ function displayText(text, justification, red, green, blue, alpha, posx, posy)
 
 end
 
+local function DrawText3D(position, text, r,g,b) 
+    local onScreen,_x,_y=World3dToScreen2d(position.x,position.y,position.z+1)
+    local dist = #(GetGameplayCamCoords()-position)
+ 
+    local scale = (1/dist)*2
+    local fov = (1/GetGameplayCamFov())*100
+    local scale = scale*fov
+   
+    if onScreen then
+        if not useCustomScale then
+            SetTextScale(0.0*scale, 0.55*scale)
+        else 
+            SetTextScale(0.0*scale, customScale)
+        end
+        SetTextFont(0)
+        SetTextProportional(1)
+        SetTextColour(r, g, b, 255)
+        SetTextDropshadow(0, 0, 0, 0, 255)
+        SetTextEdge(2, 0, 0, 0, 150)
+        SetTextDropShadow()
+        SetTextOutline()
+        SetTextEntry("STRING")
+        SetTextCentre(1)
+        AddTextComponentString("[".. text .."]")
+        DrawText(_x,_y)
+    end
+end
+
 Citizen.CreateThread(function()
     while true do
-        for id = 0, 256 do
-            if  ((NetworkIsPlayerActive( id )) and GetPlayerPed( id ) ~= GetPlayerPed( -1 )) then
-                ped = GetPlayerPed( id )
- 
-                x1, y1, z1 = table.unpack( GetEntityCoords( GetPlayerPed( -1 ), true ) )
-                x2, y2, z2 = table.unpack( GetEntityCoords( GetPlayerPed( id ), true ) )
-                distance = math.floor(GetDistanceBetweenCoords(x1,  y1,  z1,  x2,  y2,  z2,  true))
-				local takeaway = 0.95
-				z2 = z2 + Config.MarkerHeight
-                if ((distance < Config.DrawDistance) and IsEntityVisible(GetPlayerPed(id))) ~= GetPlayerPed( -1 ) then
-					if NetworkIsPlayerTalking(id) then
-						DrawMarker(Config.MarkerType, x2, y2, z2 - 0.0, 0, 0, 10, 0, 0, 0, Config.MarkerSize.x, Config.MarkerSize.y, Config.MarkerSize.z, Config.MarkerColor.r, Config.MarkerColor.g, Config.MarkerColor.b, 105, Config.MarkerBounce, Config.MarkerFaceCamera, 2, Config.MarkerRotate, 0, 0, 0)
-					else
-                    end
-                end  
-            end
-        end
-
 
 		local playersTalking = {'empty'}
 		local count = 1
@@ -46,12 +56,29 @@ Citizen.CreateThread(function()
 			pj = 1
 		end
 
-		for i = 0, 256 do
-			if NetworkIsPlayerTalking(i) then
-				playersTalking[count] = GetPlayerName(i)
-				count = count + 1
-			end
-		end
+        for id = 0, 256 do
+            if  ((NetworkIsPlayerActive( id )) and GetPlayerPed( id ) ~= GetPlayerPed( -1 )) then
+                ped = GetPlayerPed( id )
+ 
+                x1, y1, z1 = table.unpack( GetEntityCoords( GetPlayerPed( -1 ), true ) )
+                x2, y2, z2 = table.unpack( GetEntityCoords( GetPlayerPed( id ), true ) )
+                distance = math.floor(GetDistanceBetweenCoords(x1,  y1,  z1,  x2,  y2,  z2,  true))
+				local takeaway = 0.95
+				z2 = z2 + Config.MarkerHeight
+                if ((distance < Config.DrawDistance) and IsEntityVisible(GetPlayerPed(id))) ~= GetPlayerPed( -1 ) then
+					if NetworkIsPlayerTalking(id) then
+						DrawMarker(Config.MarkerType, x2, y2, z2 - 0.0, 0, 0, 10, 0, 0, 0, Config.MarkerSize.x, Config.MarkerSize.y, Config.MarkerSize.z, Config.MarkerColor.r, Config.MarkerColor.g, Config.MarkerColor.b, 105, Config.MarkerBounce, Config.MarkerFaceCamera, 2, Config.MarkerRotate, 0, 0, 0)
+						if Config.ShowId == 1 then
+							DrawText3D(GetEntityCoords( ped, true), GetPlayerServerId(id), Config.MarkerColor.r, Config.MarkerColor.g, Config.MarkerColor.b )
+						end
+					else
+						if Config.ShowId == 1 then
+							DrawText3D(GetEntityCoords( ped, true), GetPlayerServerId(id), 255, 255, 255 )
+						end
+                    end
+                end  
+            end
+        end
 
 		if playersTalking[1] ~= "empty" and Config.ShowText == 1 then
 			displayText("Currently talking:", pj, 255, 255, 255, 255, px, py) -- always white
