@@ -78,6 +78,10 @@ Citizen.CreateThread(function()
                     end
                 end  
             end
+			if NetworkIsPlayerTalking(id) then
+				playersTalking[count] = GetPlayerName(id)
+				count = count + 1
+			end
         end
 
 		if playersTalking[1] ~= "empty" and Config.ShowText == 1 then

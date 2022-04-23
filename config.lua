@@ -32,3 +32,9 @@ Config.ShowText = 1
 
 -- Text Placement on screen   0 = top center   1 = left
 Config.TextPlacement 	= 0
+
+-- Show player ID over head
+Config.ShowId			= 1
+
+-- Distance the ID overhead can be seen - usually a short distance as it is just for admin purposes mostly
+Config.DrawIdDistance	= 3
