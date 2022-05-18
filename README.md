@@ -13,6 +13,8 @@ It can also be used with the default voice chat.
 
 I think it will work with just about any chat mod if that mod doesn't hijack the basic cfx voice mechanism.
 
+Tested with mumble-voip/rp-radio and pma-voice/rp-radio/npwd
+
 ## Credits
 Base for the marker came from [BTNGaming] (https://github.com/btngaming/rrp_VoiceMarker)
 
