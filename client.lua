@@ -7,29 +7,29 @@ function displayText(text, justification, red, green, blue, alpha, posx, posy)
     SetTextColour(red, green, blue, alpha)
     SetTextOutline()
 
-    BeginTextCommandDisplayText("STRING") -- old: SetTextEntry()
-    AddTextComponentSubstringPlayerName(text) -- old: AddTextComponentString
-    EndTextCommandDisplayText(posx, posy) -- old: DrawText()
+    BeginTextCommandDisplayText("STRING")
+    AddTextComponentSubstringPlayerName(text)
+    EndTextCommandDisplayText(posx, posy)
 
 end
 
-local function DrawText3D(position, text, r,g,b) 
-    local onScreen,_x,_y=World3dToScreen2d(position.x,position.y,position.z+1)
+local function DrawText3D(position, text, r, g, b, a) 
+    local onScreen, _x, _y = World3dToScreen2d(position.x, position.y, position.z + 1)
     local dist = #(GetGameplayCamCoords()-position)
  
-    local scale = (1/dist)*2
-    local fov = (1/GetGameplayCamFov())*100
-    local scale = scale*fov
+    local scale = (1 / dist) * 2
+    local fov = (1 / GetGameplayCamFov()) * 100
+    local scale = scale * fov
    
     if onScreen then
         if not useCustomScale then
-            SetTextScale(0.0*scale, 0.55*scale)
+            SetTextScale(0.0 * scale, 0.55 * scale)
         else 
-            SetTextScale(0.0*scale, customScale)
+            SetTextScale(0.0 * scale, customScale)
         end
         SetTextFont(0)
         SetTextProportional(1)
-        SetTextColour(r, g, b, 255)
+        SetTextColour(r, g, b, a)
         SetTextDropshadow(0, 0, 0, 0, 255)
         SetTextEdge(2, 0, 0, 0, 150)
         SetTextDropShadow()
@@ -37,7 +37,7 @@ local function DrawText3D(position, text, r,g,b)
         SetTextEntry("STRING")
         SetTextCentre(1)
         AddTextComponentString(text)
-        DrawText(_x,_y)
+        DrawText(_x, _y)
     end
 end
 
@@ -68,9 +68,9 @@ Citizen.CreateThread(function()
 
                 if ((distance < Config.DrawDistance) and IsEntityVisible(GetPlayerPed(id))) ~= GetPlayerPed( -1 ) then
 					if NetworkIsPlayerTalking(id) then
-						DrawMarker(Config.MarkerType, x2, y2, z2 - 0.0, 0, 0, 10, 0, 0, 0, Config.MarkerSize.x, Config.MarkerSize.y, Config.MarkerSize.z, Config.MarkerColor.r, Config.MarkerColor.g, Config.MarkerColor.b, 105, Config.MarkerBounce, Config.MarkerFaceCamera, 2, Config.MarkerRotate, 0, 0, 0)
+						DrawMarker(Config.MarkerType, x2, y2, z2 - 0.0, 0, 0, 10, 0, 0, 0, Config.MarkerSize.x, Config.MarkerSize.y, Config.MarkerSize.z, Config.MarkerColor.r, Config.MarkerColor.g, Config.MarkerColor.b, Config.MarkerColor.a, Config.MarkerBounce, Config.MarkerFaceCamera, 2, Config.MarkerRotate, 0, 0, 0)
 						if ((Config.ShowId) == 1 and (distance < Config.DrawIdDistance)) then
-							DrawText3D(GetEntityCoords( ped, true), GetPlayerServerId(id), Config.MarkerColor.r, Config.MarkerColor.g, Config.MarkerColor.b )
+							DrawText3D(GetEntityCoords( ped, true), GetPlayerServerId(id), Config.MarkerColor.r, Config.MarkerColor.g, Config.MarkerColor.b, 255 )
 						end
 					else
 						if ((Config.ShowId) == 1 and (distance < Config.DrawIdDistance)) then
@@ -90,7 +90,7 @@ Citizen.CreateThread(function()
 			displayText("Currently talking:", pj, 255, 255, 255, 255, px, py) -- always white
 			count = 0
 			for k,v in pairs(playersTalking) do
-				displayText(v, pj, Config.MarkerColor.r, Config.MarkerColor.g, Config.MarkerColor.b, 255, px, py + (0.025*(count+1)))
+				displayText(v, pj, Config.MarkerColor.r, Config.MarkerColor.g, Config.MarkerColor.b, 255, px, py + (0.025 * (count + 1)))
 				count = count + 1
 			end
 		end
