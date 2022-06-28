@@ -40,3 +40,5 @@ Original Concept: FamilyRP-Style-Voice
 
 ## Dependencies
 Standalone
+
+[https://cdn.discordapp.com/attachments/927598976742592577/991158171290832926/Screenshot_34_cr.png]
